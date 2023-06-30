@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700&family=Poppins:wght@500&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+}
+
+/* Navbar */
+.nav-bar{
+    height: 70px;
+    background-color:black;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    padding : 0 4rem;
+}
+.nav-bar a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    margin-left: 2rem;
+}
+.nav-bar h2{
+    font-size: 40px;
+}
+.nav-bag{
+display: flex;
+align-items: center;
+}
+
+.bag-quantity {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    border-radius: 50px;
+    height: 25px;
+    width: 25px;
+    background-color: #b0d42e;
+    color: white;
+    justify-content: center;
+    margin-left: 3px;
+}
+
+.erronous {
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    color: grey;
+    min-height: 85vh;
+}
+
+.erronous h2{
+    font-size: 40px;
+}
+
+.erronous p{
+    font-size: 35px;
+}
