@@ -27,6 +27,7 @@ app.get('/products', (req, res,next) => {
         next(err)
     }
 })
+``
 //handling the errors
 app.use((err, req, res, next) => {
   console.error(err)

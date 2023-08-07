@@ -1,14 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-///consigure a store to hold the products
+///conigure a store to hold the products
 import { Provider } from "react-redux";
-import { ConfigureStore } from "./redux/configureStore";
-//import productReducer from "./features/productslice";
-
-const store = ConfigureStore({
-  reducer: {},
+import { configureStore } from "@reduxjs/toolkit";
+import productReducer from "./features/productslice";
+import { FetchProducts } from "./features/productslice";
+const store = configureStore({
+  reducer: {
+    products: productReducer,
+  },
 });
+
+store.dispatch(FetchProducts());
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

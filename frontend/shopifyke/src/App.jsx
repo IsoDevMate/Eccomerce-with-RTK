@@ -13,8 +13,9 @@ const App = () => {
         <Routes>
           <Route exact path="/cart" element={<Cart />} />
           <Route path="/errorpage" exact element={<NotFound />} />
+          <Route path="*" exact element={<NotFound />} />
           <Route
-                    path="/redirect"
+                    path="/error-page"
                     element={ <Navigate to="/error-page" /> }
                 />
           <Route path="/" exact element={<Home />} />
@@ -22,6 +23,5 @@ const App = () => {
       </BrowserRouter>
     </div>
   );
-};
-
+}
 export default App;
