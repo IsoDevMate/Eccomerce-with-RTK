@@ -8,7 +8,7 @@ const app = express()
 //configure middleware functions
 const cors = require('cors')
 require('dotenv').config()
-const port= process.env.PORT || 4000
+const port = process.env.PORT || 4000
 
 app.use(express.json())
 
@@ -19,14 +19,11 @@ app.use(cors())
 app.get('/', (req, res) => {
  res.send("Welcome to our online store API")
 })
-app.get('/products', (req, res,next) => {
-    try {
-        res.send(products)
-    }
-    catch (err) {
-        next(err)
-    }
-})
+
+app.get('/products', (req, res) => {
+    res.send(products);
+});
+
 ``
 //handling the errors
 app.use((err, req, res, next) => {
