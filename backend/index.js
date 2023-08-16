@@ -4,12 +4,13 @@ const express = require('express')
 
 //ensure to add express router feature later versions
 const app = express()
-//i will use express.json to parse json data
-//configure middleware functions
+
 const cors = require('cors')
 require('dotenv').config()
 const port = process.env.PORT || 4000
 
+//i will use express.json to parse json data
+//configure middleware functions
 app.use(express.json())
 
 //allow access of nodejs api from react app
