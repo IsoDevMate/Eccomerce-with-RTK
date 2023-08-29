@@ -7,7 +7,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import productReducer from "./features/productslice";
 import { FetchProducts } from "./features/productslice";
 import { productApi } from "./features/productAPIS.jsx";
-import {cartReducer} from './features/cartSlice.jsx'
+import cartReducer from './features/cartSlice.jsx'
 /* import { setupListeners } from "@reduxjs/toolkit/dist/query/index.js"; */
 const store = configureStore({
   reducer: {
