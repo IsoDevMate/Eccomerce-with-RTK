@@ -1,5 +1,5 @@
 import { Navbar } from "./components/navbar";
-import { Cart } from "./components/cart";
+import  { Cart }  from "./components/cart";
 import { Home } from "./components/home";
 import "./App.css";
 import { BrowserRouter, Routes, Route ,Navigate} from "react-router-dom";
@@ -14,6 +14,10 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route exact path="/cart" element={<Cart />} />
+          <Route
+                    path="/cart"
+                    element={ <Navigate to="/cart" /> }
+                />
           <Route path="/errorpage" exact element={<NotFound />} />
           <Route path="*" exact element={<NotFound />} />
           <Route
