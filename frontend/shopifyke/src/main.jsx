@@ -4,14 +4,14 @@ import App from "./App.jsx";
 ///conigure a store to hold the products
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import productReducer from "./features/productslice";
-import { FetchProducts } from "./features/productslice";
+/* import productReducer,{ FetchProducts } from "./features/productslice"; */
+
 import { productApi } from "./features/productAPIS.jsx";
 import cartReducer from './features/cartSlice.jsx'
-/* import { setupListeners } from "@reduxjs/toolkit/dist/query/index.js"; */
+/* import { setupListeners } from "@reduxjs/toolkit/dist/query/index.js" // Corrected import path */
 const store = configureStore({
   reducer: {
-    products: productReducer,
+   /*  products: productReducer, */
     cart: cartReducer,
     [productApi.reducerPath]: productApi.reducer,
   },
@@ -20,8 +20,8 @@ const store = configureStore({
     getDefaultMiddleware().concat(productApi.middleware)
 });
 
-store.dispatch(FetchProducts());
-/* setupListeners(store.dispatch); */
+/* store.dispatch(FetchProducts());  */
+/* setupListeners(store.dispatch);  */
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

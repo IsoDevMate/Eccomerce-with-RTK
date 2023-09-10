@@ -26,26 +26,76 @@ const CartSlice=createSlice({
          toast.info(`increased ${state.cartItems[itemIndex].name}  cart Quantity`, {
             position:  toast.POSITION.TOP_RIGHT ,
             className: 'foobar'
-          })
+      
         
-         }else{
-           //when we dont have products in the cart items 
+            })
+            
+          }else{
+            //when we dont have products in the cart items 
             //state.cartItems.push(products)
-        const tempProducts={...action.payload, cartQuantity:1}
-        state.cartItems.push(tempProducts)//product comes from an action creator 
-        //successfully added to cart popup
-        toast.success(`added ${action.payload.name} to cart `, {
-          position:  toast.POSITION.BOTTOM_RIGHT,
-          className: 'barfoo'
+            const tempProducts={...action.payload, cartQuantity:1}
+            state.cartItems.push(tempProducts)//product comes from an action creator 
+            //successfully added to cart popup
+          }
+          toast.success(`added ${action.payload.name} to cart `, {
+            position:  toast.POSITION.BOTTOM_RIGHT,
+            className: 'barfoo'
+          })
+          //add cart items to local storage key is {cartItems}
+          localStorage.setItem('cartItems',JSON.stringify(state.cartItems))
+        },
+        removeFromCart(state,action){
+          const NextcartItems=state.cartItems.filter(cartItem=>cartItem.id !== action.payload)
+          
+          //update the state of the cartItems
+          state.cartItem =NextcartItems
+        
+        //update the localStorage
+        localStorage.setItem('cartItems',JSON.stringify(state.cartItems))
+        toast.error(` ${action.payload.name} removed from cart`, {
+           position:  toast.POSITION.TOP_RIGHT,
+           className: 'foobar'
+      })
+          
+        },
+        decreaseCart(state,action){
+          //get the Index of our cartItems by comparing the Id
+          //payload.id is the product.id  for the item whose quantity is to be decreased
+          const itemIndex=state.cartItems.findIndex(cartItem=>cartItem.id === action.payload.id)
+          //accessing the cartQuantity
+          if(state.cartItems[itemIndex].cartQuantity > 1){
+            state.cartItems[itemIndex].cartQuantity -= 1
+            toast.info(`increased ${state.cartItems[itemIndex].name}  cart Quantity`, {
+              position:  toast.POSITION.TOP_RIGHT ,
+              className: 'foobar'
+          })
+          }else if(state.cartItems[itemIndex].cartQuantity === 1){
+          const NextcartItems=state.cartItems.filter(cartItem=>cartItem.id !== action.payload)
+          
+          //update the state of the cartItems
+          state.cartItem =NextcartItems
+        
+        //update the localStorage
+        toast.error(` ${action.payload.name} removed from cart`, {
+          position:  toast.POSITION.TOP_RIGHT,
+          className: 'foobar'
         })
-         }
-         //add cart items to local storage key is {cartItems}
-       localStorage.setItem('cartItems',JSON.stringify(state.cartItems))
-  }
+        localStorage.setItem('cartItems',JSON.stringify(state.cartItems))
+        
+      }
+      
+      
+    },
+    clearCart(state){
+      state.cartItems=[]
+      toast.success(`cart cleared`, {
+        position:  toast.POSITION.BOTTOM_RIGHT,
+        className: 'barfoo'
+      })
+      localStorage.setItem('cartItems',JSON.stringify(state.cartItems))
+      }
 }
-}
-)
-
-export const {addToCart}=CartSlice.actions
+})
+export const {addToCart,removeFromCart,decreaseCart,clearCart}=CartSlice.actions
 
 export default CartSlice.reducer

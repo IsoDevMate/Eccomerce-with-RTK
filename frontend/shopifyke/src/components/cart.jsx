@@ -1,21 +1,39 @@
 
 import {  useSelector } from "react-redux";
-/* import {
-  addToCart,
+import { useDispatch } from "react-redux";
+ import {
+   addToCart,
   clearCart,
   decreaseCart,
-  getTotals,
-  removeFromCart, 
-} from "../slices/cartSlice"; */
+  removeFromCart
+} from "../features/cartSlice"; 
 
 import { Link } from "react-router-dom";
 
 export const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  const dispatch= useDispatch
+
+  const handleRemoveFromCart=(cartItem)=>{
+    dispatch(removeFromCart(cartItem))
+  }
+
+  const handleDecreaseFromCart=(cartItem)=>{
+    dispatch(decreaseCart(cartItem))
+  }
+
+  const handleIncreaseFromCart=(cartItem)=>{
+    dispatch(addToCart(cartItem))
+  }
+  
+  const handleClearCart=()=>{
+    dispatch(clearCart())
+  }
+
   return (
     <div className="cart-container">
       <h2>Shopping Cart</h2>
-      {cart.cartItems.length === 0 ? (
+      {!cart.cartItems || cart.cartItems.length === 0 ? (
         <div className="cart-empty">
           <p>Your cart is currently empty</p>
           <div className="start-shopping">
@@ -53,16 +71,16 @@ export const Cart = () => {
                     <div>
                       <h3>{cartItem.name}</h3>
                       <p>{cartItem.desc}</p>
-                      <button >
+                      <button  onClick={()=>handleRemoveFromCart(cartItem)}>
                         Remove
                       </button>
                     </div>
                   </div>
                   <div className="cart-product-price">${cartItem.price}</div>
                   <div className="cart-product-quantity">
-                    <button>-</button>
+                    <button onClick={()=>handleDecreaseFromCart(cartItem)}>-</button>
                     <div className="count">{cartItem.cartQuantity}</div>
-                    <button >+</button>
+                    <button onClick={()=>handleIncreaseFromCart(cartItem)}>+</button>
                   </div>
                   <div className="cart-product-total-price">
                     ${cartItem.price * cartItem.cartQuantity}
@@ -71,7 +89,7 @@ export const Cart = () => {
               ))}
           </div>
           <div className="cart-summary">
-            <button className="clear-btn" >
+            <button className="clear-btn" onClick={()=>handleClearCart} >
               Clear Cart
             </button>
             <div className="cart-checkout">

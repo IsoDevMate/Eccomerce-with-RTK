@@ -16,7 +16,7 @@ const App = () => {
           <Route exact path="/cart" element={<Cart />} />
           <Route
                     path="/cart"
-                    element={ <Navigate to="/cart" /> }
+                    element={ <Navigate to="/cart"  replace={true} />}
                 />
           <Route path="/errorpage" exact element={<NotFound />} />
           <Route path="*" exact element={<NotFound />} />
