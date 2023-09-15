@@ -5,14 +5,20 @@ import { useDispatch } from "react-redux";
    addToCart,
   clearCart,
   decreaseCart,
+  getTotals,
   removeFromCart
 } from "../features/cartSlice"; 
 
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 export const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const dispatch= useDispatch
+
+  useEffect(()=>{
+    dispatch(getTotals())
+  },[cart, dispatch])
 
   const handleRemoveFromCart=(cartItem)=>{
     dispatch(removeFromCart(cartItem))

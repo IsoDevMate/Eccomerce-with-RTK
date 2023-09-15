@@ -81,10 +81,8 @@ const CartSlice=createSlice({
           className: 'foobar'
         })
         localStorage.setItem('cartItems',JSON.stringify(state.cartItems))
-        
+
       }
-      
-      
     },
     clearCart(state){
       state.cartItems=[]
@@ -93,9 +91,35 @@ const CartSlice=createSlice({
         className: 'barfoo'
       })
       localStorage.setItem('cartItems',JSON.stringify(state.cartItems))
+      },
+      getTotals(state){
+       let { total,quantity }=state.cartItems.reduce((cartTotal,cartItem)=>{
+        //note cartTotal holds initial values of the initiated object { total:0,quantity:0 } 
+        //cartItem is the item returned on each iteration
+        //destructure the price and cartQuantity from cartItem
+        const { price,cartQuantity } = cartItem
+        const ItemTotal = price * cartQuantity
+
+        cartTotal.total += ItemTotal
+        cartTotal.quantity +=cartQuantity
+
+        return cartTotal
+       },
+       //Initial Value which is an Object
+       {
+        total:0,
+        quantity:0
+       }
+       )
+
+       //update our state of cartQuantiti and 
+
+       state.cartTotalQuantity=quantity
+       state.cartTotalAmount= total
       }
+
 }
 })
-export const {addToCart,removeFromCart,decreaseCart,clearCart}=CartSlice.actions
+export const {addToCart,removeFromCart,decreaseCart,clearCart,getTotals}=CartSlice.actions
 
 export default CartSlice.reducer

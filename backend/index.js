@@ -1,7 +1,7 @@
 const products = require('./products')
 const express = require('express')
-
-
+const mongoose = require('mongoose')
+const ConnectSchema = require('./dbs')
 //ensure to add express router feature later versions
 const app = express()
 
@@ -21,11 +21,13 @@ app.get('/', (req, res) => {
  res.send("Welcome to our online store API")
 })
 
-app.get('/products', (req, res) => {
+app.get('/products', async(req, res) => {
     res.send(products);
 });
 
-``
+//connect to mongodb
+ConnectSchema();
+
 //handling the errors
 app.use((err, req, res, next) => {
   console.error(err)

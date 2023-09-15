@@ -7,7 +7,7 @@ import { configureStore } from "@reduxjs/toolkit";
 /* import productReducer,{ FetchProducts } from "./features/productslice"; */
 
 import { productApi } from "./features/productAPIS.jsx";
-import cartReducer from './features/cartSlice.jsx'
+import cartReducer, { getTotals } from './features/cartSlice.jsx'
 /* import { setupListeners } from "@reduxjs/toolkit/dist/query/index.js" // Corrected import path */
 const store = configureStore({
   reducer: {
@@ -21,6 +21,9 @@ const store = configureStore({
 });
 
 /* store.dispatch(FetchProducts());  */
+
+store.dispatch(getTotals()); 
+
 /* setupListeners(store.dispatch);  */
 
 ReactDOM.createRoot(document.getElementById("root")).render(
