@@ -13,6 +13,8 @@ const App = () => {
       <ToastContainer />
         <Navbar />
         <Routes>
+
+        <Route path="/" exact element={<Home />} />
           <Route exact path="/cart" element={<Cart />} />
           <Route
                     path="/cart"
@@ -24,7 +26,7 @@ const App = () => {
                     path="/error-page"
                     element={ <Navigate to="/error-page" /> }
                 />
-          <Route path="/" exact element={<Home />} />
+        
         </Routes>
       </BrowserRouter>
     </div>

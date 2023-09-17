@@ -6,8 +6,9 @@ import { useNavigate } from "react-router-dom"
 
 export const Home = () => {
 /*  const { products,status } = UseSelector((state) => state.product)  */
-  const { data, error,/* isFetching,*/ isLoading  }= useGetProductsByNameQuery()
+  const { data, error, isLoading  }= useGetProductsByNameQuery()
   console.log("Api", isLoading);
+  
   const dispatch=useDispatch()
 const navigate=useNavigate()
 
