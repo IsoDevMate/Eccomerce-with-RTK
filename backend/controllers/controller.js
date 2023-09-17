@@ -1,8 +1,9 @@
-const asyncHandler = require('express-async-handler')
+/* const asyncHandler = require('express-async-handler') */
 const Joi =require('joi')
 const { User }=require('../models/schema')
+const generateAccessToken = require('../utils/jwtAuthToken')
 
-exports.Validater=asyncHandler(async (req, res,next) => {
+exports.Validater=async (req, res,next) => {
     const schema=Joi.object({
         name:Joi.string().min(3).max(21).required(),
         email:Joi.string().min(6).max(133).required().email(),
@@ -14,7 +15,7 @@ exports.Validater=asyncHandler(async (req, res,next) => {
         throw new Error(error.details[0].message)
     }
     next()
-})
+
 //lets bring in the user model that aids us interact with the db
 let user = await User.findOne({ email:req.body.email })
 if(user) return res.status(400).send('User already exists...')
@@ -32,6 +33,12 @@ const saltRounds = 10
 const salt= await bcrypt.genSalt(saltRounds)
 user.password = await bcrypt.hash(user.password,salt)
 
+user= await user.save()
+
+const token = generateAccessToken(user)
+
+res.send(token)
+}
 //comparing db password 
 
 /* const checkUser=(async(username, password) =>{
@@ -45,5 +52,5 @@ user.password = await bcrypt.hash(user.password,salt)
 //lets save the user to the db
 checkUser()
  */
-await user.save()
+
 

@@ -1,2 +1,12 @@
 ###
 GET http://localhost:4000/products
+
+###
+POST  http://localhost:4000/api/regUser
+Content-Type : application/json
+{
+    "name":"barack-ouma",
+    "email":"sscfsfgv@gmail.com",
+    "password":"dcnvnern"
+
+}

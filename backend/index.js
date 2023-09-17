@@ -1,9 +1,10 @@
 const products = require('./products')
 const express = require('express')
-const mongoose = require('mongoose')
+/* const mongoose = require('mongoose') */
 const ConnectSchema = require('./dbs')
 //ensure to add express router feature later versions
 const app = express()
+const register=require('./routes/routes')
 
 const cors = require('cors')
 require('dotenv').config()
@@ -15,6 +16,8 @@ app.use(express.json())
 
 //allow access of nodejs api from react app
 app.use(cors())
+
+app.use('/api', register)
 
 //create a get route
 app.get('/', (req, res) => {

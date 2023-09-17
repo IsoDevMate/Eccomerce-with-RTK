@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Validater } = require('../controllers/controller');
 
-router.post('/', Validater);
+router.post('/regroute',Validater);
 
 module.exports = router;
