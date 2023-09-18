@@ -29,34 +29,27 @@ exports.Validater=async (req, res,next) => {
 
 const createUser = async (req, res) => {
     try {
-        const user = await User.find({ email: req.body.email }).limit(1).next();
-        if(err){
-            console.log(err)
-            }
-            else{
+        let user = await User.findOne({ email: req.body.email });
         if (user) {
             return res.status(400).send('User already exists...');
         }
 
-        const newUser = new User({
-            name: req.body.name,
-            email: req.body.email,
-            password: req.body.password,
-        });
 
-        const saltRounds = 10;
-        const salt = await bcrypt.genSalt(saltRounds);
-        newUser.password = await bcrypt.hash(newUser.password, salt);
+    user = new User({ name,email,password })=req.body
 
-        await newUser.save();
+    const saltRounds = 10;
+    const salt= await bcrypt.genSalt(saltRounds);
+    user.password = await bcrypt.hash(user.password,salt);
 
-        return newUser;
-    }
-    } catch (error) {
-        console.error(error);
-        return res.status(500).send('Internal Server Error');
-    }
+    user= await user.save();
+
+    return user;
+} catch (error) {
+    console.error(error);
+    return res.status(500).send('Internal Server Error');
 }
+}
+
 const generateToken = (user) => {
     return generateAccessToken(user);
 }
