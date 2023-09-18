@@ -35,7 +35,11 @@ const createUser = async (req, res) => {
         }
 
 
-    user = new User({ name,email,password })=req.body
+    user = new User({
+        name:req.body.name,
+        email:req.body.email,
+        password:req.body.password,
+    })
 
     const saltRounds = 10;
     const salt= await bcrypt.genSalt(saltRounds);
