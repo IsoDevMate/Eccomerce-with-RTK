@@ -14,7 +14,7 @@ const port = process.env.PORT || 4000
 //configure middleware functions
 app.use(express.json())
 
-//allow access of nodejs api from react app
+//allow access of nodejs api from react appobject
 app.use(cors())
 
 app.use('/api', register)

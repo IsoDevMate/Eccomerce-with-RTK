@@ -15,6 +15,7 @@ exports.LogInValidater=async (req, res,next) => {
         }
         next()
         const user = await loginUser(req);
+        console.log(user)
         const token = generateToken(user);
     
         res.send(token);

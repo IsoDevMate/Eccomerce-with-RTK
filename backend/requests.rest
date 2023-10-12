@@ -1,8 +1,10 @@
 ###
+
 GET http://localhost:4000/products
 
 ###
-POST  http://localhost:4000/api/regUser
+
+POST  http://localhost:4000/api/regroute
 Content-Type : application/json
 {
     "name":"barack-ouma",
