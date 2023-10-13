@@ -42,7 +42,40 @@ const initialState = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers:{},
+  reducers:{
+    loaduser(state,action){
+
+    //get token from the local storage
+    const token= localStorage.getItem('token')  
+    //check if token exists and decode it  return it as the new state
+    if(token){
+      const user = jwt_decode(token)
+      return {
+        ...state,
+        token:token,
+        name:user.name,
+        email:user.email,
+        id:user._id,
+        userLoaded:true
+      }
+    }
+  },
+  logoutuser(state,action){
+    localStorage.removeItem('token')
+    return {
+      ...state,
+      token:null | "",
+      name:"",
+      email:"",
+      id:"",
+      loginStatus:"",
+      loginEror:"",
+      registerStatus:"",
+      registerEror:"",
+      userLoaded:false
+    }
+  },
+},
   extraReducers: (builder) => {
     builder
     .addCase(FetchUserData.pending, (state) => {
@@ -70,7 +103,8 @@ const authSlice = createSlice({
       };
     });
 },
-});
+}
+)
 
-
+export const { loaduser ,logoutuser } = authSlice.actions;
 export default authSlice.reducer

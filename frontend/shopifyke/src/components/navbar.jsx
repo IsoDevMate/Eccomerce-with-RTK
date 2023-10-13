@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import {  useSelector } from "react-redux/es/hooks/useSelector";
+import { logoutuser } from "../features/authslice";
+//define styled components
+import styled from "styled-components";
 export const Navbar = () => {
   const { cartTotalQuantity } = useSelector((state)=>state.cart)
+  const  auth = useSelector((state)=>state.auth)
   return (
     <nav className="nav-bar">
       <Link to="/">
@@ -25,10 +29,42 @@ export const Navbar = () => {
             />
           </svg>
           <span className="bag-quantity">
-            <span className="bag-quantity-number">{ cartTotalQuantity }</span>
+            <span className="bag-quantity-number">{cartTotalQuantity}</span>
           </span>
         </div>
       </Link>
+      {/* dispatch the logoutuser action creator */}
+      {auth && auth._id ? (
+        <Logout
+          onClick={() => {
+            dispatch(logoutuser());
+            toast.warning(`logged out`, {
+              position: toast.POSITION.TOP_RIGHT,
+              className: "foobar",
+            });
+          }}
+        >
+          Logout
+        </Logout>
+      ) : (
+        <AuthLinks>
+          <Link to="/login">Login</Link>
+          <Link to="/register">Register</Link>
+        </AuthLinks>
+      )}
     </nav>
-  );
-};
+  )
+}
+
+const AuthLinks = styled.div`
+  a {
+    &:last-child {
+      margin-left: 2rem;
+    }
+  }
+`;
+
+const Logout = styled.div`
+  color: white;
+  cursor: pointer;
+`;

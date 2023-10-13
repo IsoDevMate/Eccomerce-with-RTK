@@ -1,6 +1,7 @@
 import { Navbar } from "./components/navbar";
-import  { Cart }  from "./components/cart";
+import   Cart  from "./components/cart";
 import { Home } from "./components/home";
+import  Register  from "./features/Auth/register";
 import "./App.css";
 import { BrowserRouter, Routes, Route ,Navigate} from "react-router-dom";
 import { NotFound } from "./components/notfoound";
@@ -20,13 +21,14 @@ const App = () => {
                     path="/cart"
                     element={ <Navigate to="/cart"  replace={true} />}
                 />
+           <Route path="/register" element={<Register />} />
           <Route path="/errorpage" exact element={<NotFound />} />
           <Route path="*" exact element={<NotFound />} />
           <Route
                     path="/error-page"
                     element={ <Navigate to="/error-page" /> }
                 />
-        
+         
         </Routes>
       </BrowserRouter>
     </div>
