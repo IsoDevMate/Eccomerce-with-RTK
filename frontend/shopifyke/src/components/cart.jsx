@@ -1,16 +1,10 @@
+import { useSelector } from "react-redux";
+import { useAddToCartMutation, useRemoveFromCartMutation } from "../features/cartAPI";
 
-import {  useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
- import {
-   addToCart,
-  clearCart,
-  decreaseCart,
-  getTotals,
-  removeFromCart
-} from "../features/cartSlice"; 
-
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+
+
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
@@ -18,25 +12,52 @@ const Cart = () => {
   const navigate = useNavigate();
   const dispatch= useDispatch
 
+  const [addToCart] = useAddToCartMutation();
+  const [removeFromCart] = useRemoveFromCartMutation();
+  const [decreaseCart] = useDecreaseCartMutation();
+  const [clearCart] = useClearCartMutation();
+  
   useEffect(()=>{
     dispatch(getTotals())
+    // You might need to implement getTotals in cartAPI
   },[cart, dispatch])
 
-  const handleRemoveFromCart=(cartItem)=>{
-    dispatch(removeFromCart(cartItem))
-  }
 
-  const handleDecreaseFromCart=(cartItem)=>{
-    dispatch(decreaseCart(cartItem))
-  }
+  const handleRemoveFromCart = async (cartItem) => {
+    try {
+      await removeFromCart({ id: cartItem.id }).unwrap();
+    } catch (err) {
+      console.error('Failed to remove item from cart: ', err);
+    }
+  };
 
-  const handleIncreaseFromCart=(cartItem)=>{
-    dispatch(addToCart(cartItem))
-  }
-  
-  const handleClearCart=()=>{
-    dispatch(clearCart())
-  }
+  const handleIncreaseFromCart = async (cartItem) => {
+    try {
+      await addToCart(cartItem).unwrap();
+    } catch (err) {
+      console.error('Failed to add item to cart: ', err);
+    }
+  };
+
+  const handleDecreaseFromCart = async (cartItem) => {
+    try {
+      await decreaseCart(cartItem).unwrap();
+    } catch (err) {
+      console.error('Failed to decrease item quantity: ', err);
+    }
+  };
+
+  const handleClearCart = async () => {
+    try {
+      await clearCart().unwrap();
+    } catch (err) {
+      console.error('Failed to clear cart: ', err);
+    }
+  };
+
+
+
+
 
   return (
     <div className="cart-container">
@@ -137,3 +158,6 @@ const Cart = () => {
   );
 };
  export default Cart 
+
+
+
